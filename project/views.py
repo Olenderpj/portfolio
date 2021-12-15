@@ -1,12 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from .models import Project
+from .forms import CreateProjectForm
 
 
 # Create your views here.
 
 def index(request):
-    return HttpResponse('Hello, Welcome to the index page')
+    all_projects = Project.objects.all()
+    total_projects = Project.objects.all().count()
+
+    context = {
+        'all_projects': all_projects,
+        'total_projects': total_projects,
+    }
+
+    return render(request, 'index.html', context=context)
 
 
-def individual_post(request):
-    return HttpResponse('Hi, this is where an individual post will be.')
+def projectCreateView(request):
+    form = CreateProjectForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+
+    context = { 'form': form
+
+    }
+
+
+
+
+    return render(request, 'newProject.html', context=context)
+
+
+

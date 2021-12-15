@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+</head>
+<body>
+    <div class="title">
+        <h1>Welcome! </h1>
+        {% if total_projects == 0 %}
+            <p>There are currently no projects to display</p>
+        {% else %}
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                </tr>
+                   {% for project in all_projects %}
+                       <tr>
+                            <td>{{ project.title }}</td>
+                            <td>{{ project.description }}</td>
+                       </tr>
+                   {% endfor %}
+            </table>
+        {% endif %}
+    <p>Project Count: {{ total_projects }}</p>
+    </div>
+</body>
+</html>
