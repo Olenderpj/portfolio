@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .models import Project
 from .forms import CreateProjectForm
-
 
 # Create your views here.
 
@@ -20,18 +18,30 @@ def index(request):
 
 def projectCreateView(request):
     form = CreateProjectForm(request.POST or None)
-
     if form.is_valid():
         form.save()
 
-    context = { 'form': form
-
+    context = {
+        'form': form
     }
-
-
-
-
     return render(request, 'newProject.html', context=context)
 
 
+def projectShowView(request, id):
+    project = Project.objects.get(pk=id)
+
+    context = {
+        'project': project
+    }
+    return render(request, 'showProject.html', context=context)
+
+def deleteProject(request, id):
+    project = Project.objects.get(pk=id)
+    project.delete()
+    return redirect('/')
+
+def deleteAllProjects(request):
+    allProjects = Project.objects.all()
+    allProjects.delete()
+    return redirect('/')
 

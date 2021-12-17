@@ -12,8 +12,12 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="title">
+    <div class = "d-flex justify-content-center">
         <h1>Welcome! </h1>
+    </div>
+
+    <div class=" d-flex justify-content-center title ">
+
         {% if total_projects == 0 %}
             <p>There are currently no projects to display</p>
         {% else %}
@@ -21,17 +25,30 @@
                 <tr>
                     <th>Title</th>
                     <th>Description</th>
+
                 </tr>
                    {% for project in all_projects %}
                        <tr>
-                            <td>{{ project.title }}</td>
+                            <td>{{ project.title }} </td>
                             <td>{{ project.description }}</td>
+                            <td>
+                                <a href='/project/show/id/{{ project.id }}'>View</a>
+                            </td>
+                            <td>
+                                <a href="/project/delete/id/{{ project.id }}">Delete</a>
+                            </td>
+
                        </tr>
                    {% endfor %}
             </table>
         {% endif %}
-    <p>Project Count: {{ total_projects }}</p>
     </div>
-    <button onclick="location.href = '/project/new/'">Create a new project</button>
+
+    <div class = "d-flex justify-content-center">
+        <p>Project Count: {{ total_projects }}</p>
+    </div>
+    <div class = "d-flex justify-content-center">
+        <a href='/project/new/'>Create New Project</a>
+    </div>
 </body>
 </html>
